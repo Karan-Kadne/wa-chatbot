@@ -257,7 +257,7 @@ export const webHookController = async (req, res) =>
             },
           });
         }
-        if (message.interactive.button_reply.id === "pdf_btn")
+        else if (message.interactive.button_reply.id === "pdf_btn")
         {
           await axios({
             method: "POST",
@@ -317,7 +317,7 @@ export const webHookController = async (req, res) =>
             },
           });
         }
-        if (message.interactive.button_reply.id === "excel_btn")
+        else if (message.interactive.button_reply.id === "excel_btn")
         {
           await axios({
               method: "POST",
@@ -377,7 +377,7 @@ export const webHookController = async (req, res) =>
               },
           });
         }
-        if (message.interactive.button_reply.id === "img_btn")
+        else if (message.interactive.button_reply.id === "img_btn")
         {
           await axios({
               method: "POST",
@@ -437,7 +437,7 @@ export const webHookController = async (req, res) =>
             },
           });
         }
-        if (message.interactive.button_reply.id === "home_btn")
+        else if (message.interactive.button_reply.id === "home_btn")
           {
             await axios({
                 method: "POST",
@@ -455,6 +455,110 @@ export const webHookController = async (req, res) =>
                   text: {
                     preview_url: false,
                     body: "Ok Great we will get back to you soon!!!",
+                  },
+                },
+            });
+            await axios({
+              method: "POST",
+              url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+              headers: {
+                Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+              },
+              data: {
+                messaging_product: "whatsapp",
+                recipient_type: "individual",
+                to: from,
+                type: "interactive",
+                interactive: {
+                  type: "button",
+                  body: {
+                    text: "In which centre you would like to book your appointment?",
+                  },
+                  action: {
+                    buttons: [
+                      {
+                        type: "reply",
+                        reply: {
+                          id: "dc_1",
+                          title: "DC 1",
+                        },
+                      },
+                      {
+                        type: "reply",
+                        reply: {
+                          id: "dc_2",
+                          title: "DC 2",
+                        },
+                      },
+                      // {
+                      //   type: "reply",
+                      //   reply: {
+                      //     id: "excel_btn",
+                      //     title: "Excel",
+                      //   },
+                      // },
+                    ],
+                  },
+                },
+              },
+            });
+            // await axios({
+            //     method: "POST",
+            //     url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+            //     headers: {
+            //       Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+            //     },
+            //     data: {
+            //       messaging_product: "whatsapp",
+            //       recipient_type: "individual",
+            //       to: from,
+            //       type: "interactive",
+        
+            //       interactive: {
+            //         type: "button",
+            //         body: {
+            //           text: "Are you interested in anything else?",
+            //         },
+            //         action: {
+            //           buttons: [
+            //             {
+            //               type: "reply",
+            //               reply: {
+            //                 id: "yes",
+            //                 title: "Yes, Please",
+            //               },
+            //             },
+            //             {
+            //               type: "reply",
+            //               reply: {
+            //                 id: "no",
+            //                 title: "No, Thank You",
+            //               },
+            //             },
+            //           ],
+            //         },
+            //       },
+            //     },
+            // });
+        }
+        else if (message.interactive.button_reply.id === "centre_btn")
+          {
+            await axios({
+                method: "POST",
+                url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+                headers: {
+                  Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+                },
+                data: {
+                  messaging_product: "whatsapp",
+                  recipient_type: "individual",
+                  to: from,
+                  context: {
+                    message_id: id,
+                  },
+                  text: {
+                    preview_url: false,
+                    body: "We are currently working on it.",
                   },
                 },
             });
@@ -497,7 +601,67 @@ export const webHookController = async (req, res) =>
                 },
             });
         }
-        if (message.interactive.button_reply.id === "centre_btn")
+        else if (message.interactive.button_reply.id === "dc_1")
+          {
+            await axios({
+                method: "POST",
+                url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+                headers: {
+                  Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+                },
+                data: {
+                  messaging_product: "whatsapp",
+                  recipient_type: "individual",
+                  to: from,
+                  context: {
+                    message_id: id,
+                  },
+                  text: {
+                    preview_url: false,
+                    body: "We are currently working on it.",
+                  },
+                },
+            });
+            await axios({
+                method: "POST",
+                url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+                headers: {
+                  Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+                },
+                data: {
+                  messaging_product: "whatsapp",
+                  recipient_type: "individual",
+                  to: from,
+                  type: "interactive",
+        
+                  interactive: {
+                    type: "button",
+                    body: {
+                      text: "Are you interested in anything else?",
+                    },
+                    action: {
+                      buttons: [
+                        {
+                          type: "reply",
+                          reply: {
+                            id: "yes",
+                            title: "Yes, Please",
+                          },
+                        },
+                        {
+                          type: "reply",
+                          reply: {
+                            id: "no",
+                            title: "No, Thank You",
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+            });
+        }
+        else if (message.interactive.button_reply.id === "dc_2")
           {
             await axios({
                 method: "POST",
