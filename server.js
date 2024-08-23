@@ -1,8 +1,10 @@
 import express from "express";
 import webhookRoutes from "./routes/routes.js";
 import { PORT, VERIFY_TOKEN } from "./config/config.js";
-
 import { SECRET_TOKEN } from "./config/config.js";
+
+
+
 
 const app = express();
 console.log(SECRET_TOKEN, PORT);
@@ -18,6 +20,17 @@ app.get("/", (req, res) => {
 // Route /api requests to webhook-related routes
 app.use("/api", webhookRoutes);
 
+
+
 app.listen(PORT, () => {
   console.log(`Webhook is listening`);
 });
+
+// var express = require('express');
+// // var app = express();
+
+
+
+// var server = app.listen(5000, function () {
+//     console.log('Server is running..');
+// });

@@ -249,6 +249,16 @@ export const webHookController = async (req, res) =>
                           id: "upload_doc",
                           title: "Upload Documents",
                         },
+                        {
+                          id: "book_appointment",
+                          title: "Book Appointment",
+                          // description: "These are all our services",
+                        },
+                        {
+                          id: "reschedule_appointment",
+                          title: "Reschedule Appointment",
+                          // description: "These are all our services",
+                        },
                       ],
                     },
                   ],
@@ -438,8 +448,8 @@ export const webHookController = async (req, res) =>
           });
         }
         else if (message.interactive.button_reply.id === "home_btn")
-          {
-            await axios({
+        {
+          await axios({
                 method: "POST",
                 url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
                 headers: {
@@ -457,8 +467,8 @@ export const webHookController = async (req, res) =>
                     body: "Ok Great we will get back to you soon!!!",
                   },
                 },
-            });
-            await axios({
+          });
+          await axios({
               method: "POST",
               url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
               headers: {
@@ -490,19 +500,12 @@ export const webHookController = async (req, res) =>
                           title: "DC 2",
                         },
                       },
-                      // {
-                      //   type: "reply",
-                      //   reply: {
-                      //     id: "excel_btn",
-                      //     title: "Excel",
-                      //   },
-                      // },
                     ],
                   },
                 },
               },
-            });
-            // await axios({
+          });
+          // await axios({
             //     method: "POST",
             //     url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
             //     headers: {
@@ -542,8 +545,8 @@ export const webHookController = async (req, res) =>
             // });
         }
         else if (message.interactive.button_reply.id === "centre_btn")
-          {
-            await axios({
+        {
+          await axios({
                 method: "POST",
                 url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
                 headers: {
@@ -561,8 +564,8 @@ export const webHookController = async (req, res) =>
                     body: "We are currently working on it.",
                   },
                 },
-            });
-            await axios({
+          });
+          await axios({
                 method: "POST",
                 url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
                 headers: {
@@ -599,30 +602,49 @@ export const webHookController = async (req, res) =>
                     },
                   },
                 },
-            });
+          });
         }
         else if (message.interactive.button_reply.id === "dc_1")
-          {
-            await axios({
-                method: "POST",
-                url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
-                headers: {
-                  Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+        {
+          await axios({
+              method: "POST",
+              url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+              headers: {
+                Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+              },
+              data: {
+                messaging_product: "whatsapp",
+                recipient_type: "individual",
+                to: from,
+                context: {
+                  message_id: id,
                 },
-                data: {
-                  messaging_product: "whatsapp",
-                  recipient_type: "individual",
-                  to: from,
-                  context: {
-                    message_id: id,
-                  },
-                  text: {
-                    preview_url: false,
-                    body: "We are currently working on it.",
-                  },
+                text: {
+                  preview_url: false,
+                  body: "Sample DC Centre",
                 },
-            });
-            await axios({
+              },
+          });
+          await axios({
+            method: "POST",
+            url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
+            headers: {
+              Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+            },
+            data: {
+              messaging_product: "whatsapp",
+              to: from,
+              type: "location",
+              location: {
+                latitude: "19.223797027940016", // dummy cordinates
+                longitude: "72.97870542324927",
+                name: "MyHealthmeter Medical and Diagnostic Center",
+                address: "Shop No. 8-14, Ezzi CHS, opp. DMart Kolshet, Kolshet Rd, Dhokali, Thane West, Thane, Maharashtra 400607",
+              },
+            },
+          });
+
+          await axios({
                 method: "POST",
                 url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
                 headers: {
@@ -659,11 +681,11 @@ export const webHookController = async (req, res) =>
                     },
                   },
                 },
-            });
+          });
         }
         else if (message.interactive.button_reply.id === "dc_2")
-          {
-            await axios({
+        {
+          await axios({
                 method: "POST",
                 url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
                 headers: {
@@ -681,8 +703,8 @@ export const webHookController = async (req, res) =>
                     body: "We are currently working on it.",
                   },
                 },
-            });
-            await axios({
+          });
+          await axios({
                 method: "POST",
                 url: `https://graph.facebook.com/v20.0/${phone_number_id}/messages`,
                 headers: {
@@ -719,10 +741,9 @@ export const webHookController = async (req, res) =>
                     },
                   },
                 },
-            });
+          });
         }
       }
-      
       break;
       case "document":
 

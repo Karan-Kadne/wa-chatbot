@@ -32,6 +32,8 @@ export const handleGreeting = async ({ phone_number_id, from, id, res, name}) =>
       },
     });
 
+    //Datbase query to store new user or send respnse for existing user 
+
     // Select Option List
     await axios({
       method: "POST",
